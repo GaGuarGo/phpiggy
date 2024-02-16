@@ -1,0 +1,7 @@
+        RewriteEngine On
+
+       ##Aponta para um arquivo que realmente precisa de uma rota, não arquivos básicos como assets
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteCond %{REQUEST_FILENAME} !-f
+
+        RewriteRule ^ /index.php [L]
