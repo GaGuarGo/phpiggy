@@ -20,12 +20,12 @@ class Router
         ];
     }
 
-    public function normalizePath(string $path): string
+    private function normalizePath(string $path): string
     {
-
-        $path = trim($path, "/");
-        $path = "/${path}/";
+        $path = trim($path, '/');
+        $path = "/{$path}/";
         $path = preg_replace('#[/]{2,}#', '/', $path);
+
         return $path;
     }
 
@@ -35,14 +35,17 @@ class Router
         $method = strtoupper($method);
 
         foreach ($this->routes as $route) {
-
-            if (!preg_match("#^{$route['path']}$#", $path) || $route['method'] !== $method) {
+            if (
+                !preg_match("#^{$route['path']}$#", $path) ||
+                $route['method'] !== $method
+            ) {
                 continue;
             }
-           [$class, $function] = $route['controller'];
 
-           $controllerInstance = new $class;
-           $controllerInstance->$function();
+            [$class, $function] = $route['controller'];
+
+            $controllerInstance = new $class;
+            $controllerInstance->{$function}();
         }
     }
 }
