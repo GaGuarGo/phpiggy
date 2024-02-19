@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Framework;
 
-use Reflection;
 use ReflectionClass;
+use Framework\Exceptions\ContainerException;
 
 class Container
 {
@@ -22,6 +22,10 @@ class Container
     {
 
         $reflectionClass = new ReflectionClass($className);
+
+        if (!$reflectionClass->isInstantiable()) {
+            throw new ContainerException("Class {$className} is not instantiable");
+        }
 
         dd($reflectionClass);
     }
