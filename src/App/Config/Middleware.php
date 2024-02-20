@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Config;
 
 use Framework\App;
-use App\Middleware\{TemplateDataMiddleware, ValidationExcetpionMiddleware};
+use App\Middleware\{TemplateDataMiddleware, ValidationExceptionMiddleware};
 
 
 
 function registerMiddleware(App $app)
 {
     $app->addMiddleware(TemplateDataMiddleware::class);
-    $app->addMiddleware(ValidationExcetpionMiddleware::class);
+    $app->addMiddleware(ValidationExceptionMiddleware::class);
 }

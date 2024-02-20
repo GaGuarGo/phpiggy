@@ -7,7 +7,7 @@ namespace App\Middleware;
 use Framework\Contracts\MiddlewareInterface;
 use Framework\Exceptions\ValidationExcetpion;
 
-class ValidationExcetpionMiddleware implements MiddlewareInterface
+class ValidationExceptionMiddleware implements MiddlewareInterface
 {
 
     public function process(callable $next)
