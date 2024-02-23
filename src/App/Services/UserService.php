@@ -25,11 +25,14 @@ class UserService
 
     public function create(array $formData)
     {
+
+        $password =  password_hash(password: $formData['password'], algo: PASSWORD_BCRYPT, options: ['cost' => 12]);
+
         $this->db->query(
             query: "INSERT INTO users(email,password,age,country,social_media_url) VALUES(:email, :password, :age, :country, :url)",
             params: [
                 'email' => $formData['email'],
-                'password' => $formData['password'],
+                'password' => $password,
                 'age' => $formData['age'],
                 'country' => $formData['country'],
                 'url' => $formData['socialMediaURL'],
