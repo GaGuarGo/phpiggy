@@ -16,10 +16,10 @@
         <label class="block">
             <span class="text-gray-700">Password</span>
             <input name="password" type="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="" />
-            <?php if (array_key_exists('email', $errors)) : ?>
+            <?php if (array_key_exists('password', $errors)) : ?>
 
                 <div class="bg-gray-100 mt-2 p-2 text-red-500">
-                    <?php echo e($errors['email'][0]); ?>
+                    <?php echo e($errors['password'][0]); ?>
                 </div>
 
             <?php endif ?>
