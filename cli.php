@@ -16,4 +16,4 @@ $db = new Database(
 );
 
 $sqlFile = file_get_contents("./database.sql");
-$db->connection->query($sqlFile);
+$db->query($sqlFile);
