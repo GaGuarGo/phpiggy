@@ -15,4 +15,5 @@ $db = new Database(
     password: '',
 );
 
-echo "Connected to Database";
+$sqlFile = file_get_contents("./database.sql");
+$db->connection->query($sqlFile);
