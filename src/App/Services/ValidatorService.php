@@ -11,17 +11,17 @@ use Framework\Rules\{
     MinRule,
     InRule,
     UrlRule,
-    MatchRule,
+    MatchRule
 };
 
 class ValidatorService
 {
-
     private Validator $validator;
 
     public function __construct()
     {
         $this->validator = new Validator();
+
         $this->validator->add('required', new RequiredRule());
         $this->validator->add('email', new EmailRule());
         $this->validator->add('min', new MinRule());
@@ -35,11 +35,11 @@ class ValidatorService
         $this->validator->validate($formData, [
             'email' => ['required', 'email'],
             'age' => ['required', 'min:18'],
-            'country' => ['required', 'in:USA,Canada,Mexico'],
+            'country' => ['required', 'in:USA, Canada, Mexico'],
             'socialMediaURL' => ['required', 'url'],
             'password' => ['required'],
             'confirmPassword' => ['required', 'match:password'],
-            'tos' => ['required'],
+            'tos' => ['required']
         ]);
     }
 }

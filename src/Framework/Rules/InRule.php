@@ -8,7 +8,6 @@ use Framework\Contracts\RuleInterface;
 
 class InRule implements RuleInterface
 {
-
     public function validate(array $data, string $field, array $params): bool
     {
         return in_array($data[$field], $params);
