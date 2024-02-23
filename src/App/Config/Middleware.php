@@ -8,8 +8,8 @@ use Framework\App;
 use App\Middleware\{
     TemplateDataMiddleware,
     ValidationExceptionMiddleware,
+    FlashMiddleware,
     SessionMiddleware,
-    FlashMiddleware
 };
 
 

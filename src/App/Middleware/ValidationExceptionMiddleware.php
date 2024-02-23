@@ -9,14 +9,11 @@ use Framework\Exceptions\ValidationException;
 
 class ValidationExceptionMiddleware implements MiddlewareInterface
 {
-
     public function process(callable $next)
     {
         try {
-
             $next();
         } catch (ValidationException $e) {
-
             $oldFormData = $_POST;
 
             $excludedFields = ['password', 'confirmPassword'];
