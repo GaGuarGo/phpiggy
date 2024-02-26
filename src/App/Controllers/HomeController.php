@@ -32,6 +32,15 @@ class HomeController
     );
 
     $lastPage = ceil($count / $length);
+    $pages = $lastPage ? range(start: 1, end: $lastPage) : [];
+
+    $pageLinks = array_map(
+      fn ($pageNum) => http_build_query([
+        'p' => $pageNum,
+        's' => $searchTerm,
+      ]),
+      $pages
+    );
 
     echo $this->view->render("/index.php", [
       'transactions' => $transactions,
@@ -47,6 +56,8 @@ class HomeController
           's' => $searchTerm,
         ]
       ),
+      'pageLinks' => $pageLinks,
+      'searchTerm' => $searchTerm,
     ]);
   }
 }
