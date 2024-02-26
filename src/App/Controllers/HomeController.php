@@ -24,12 +24,20 @@ class HomeController
     $page = (int) $page;
     $length = 3;
     $offset = ($page - 1) * $length;
+    $searchTerm = $_GET['s'] ?? null;
 
     $transactions = $this->transactionService->getUserTransactions(
       $length,
       $offset,
     );
 
-    echo $this->view->render("/index.php", ['transactions' => $transactions]);
+    echo $this->view->render("/index.php", [
+      'transactions' => $transactions,
+      'currentPage' => $page,
+      'previousPageQuery' => http_build_query(data: [
+        'p' => $page - 1,
+        's' => $searchTerm
+      ])
+    ]);
   }
 }
