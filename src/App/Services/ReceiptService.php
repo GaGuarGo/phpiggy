@@ -29,6 +29,12 @@ class ReceiptService
             throw new ValidationException(['receipt' => ['File uploaded is too Large']]);
         }
 
+        $originalFileName = $file['name'];
+
+        if (!preg_match('/^[A-za-z0-9\s._-]+$/', $originalFileName)) {
+            throw new ValidationException(['receipt' => ['Invalid File Name']]);
+        }
+
         dd($file);
     }
 }
