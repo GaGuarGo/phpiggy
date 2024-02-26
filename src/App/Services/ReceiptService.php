@@ -35,6 +35,11 @@ class ReceiptService
             throw new ValidationException(['receipt' => ['Invalid File Name']]);
         }
 
-        dd($file);
+        $clientMimeType = $file['type'];
+        $allowedMimeTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+
+        if (!in_array($clientMimeType, $allowedMimeTypes)) {
+            throw new ValidationException(['receipt' => ['Invalid File Type']]);
+        }
     }
 }
