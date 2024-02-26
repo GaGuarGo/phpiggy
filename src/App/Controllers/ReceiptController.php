@@ -42,4 +42,11 @@ class ReceiptController
 
         redirectTo("/");
     }
+
+    public function download(array $params)
+    {
+    }
+    public function delete(array $params)
+    {
+    }
 }
