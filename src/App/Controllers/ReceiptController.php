@@ -46,7 +46,7 @@ class ReceiptController
     public function download(array $params)
     {
 
-        $transaction = $this->transactionService->getUserTransaction($params['transction']);
+        $transaction = $this->transactionService->getUserTransaction($params['transaction']);
 
         if (empty($transaction)) {
             redirectTo('/');
@@ -67,5 +67,24 @@ class ReceiptController
     }
     public function delete(array $params)
     {
+        $transaction = $this->transactionService->getUserTransaction($params['transaction']);
+
+        if (empty($transaction)) {
+            redirectTo('/');
+        }
+
+        $receipt = $this->receiptService->getReceipt($params['receipt']);
+
+        if (empty($receipt)) {
+            redirectTo('/');
+        }
+
+        if ($receipt['transaction_id'] !== $transaction['id']) {
+            redirectTo('/');
+        }
+
+        $this->receiptService->delete($receipt);
+
+        redirectTo('/');
     }
 }
