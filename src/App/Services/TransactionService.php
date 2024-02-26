@@ -33,7 +33,7 @@ class TransactionService
     public function getUserTransactions()
     {
         $transactions = $this->db->query(
-            "SELECT * FROM transactions WHERE user_id = :user_id",
+            "SELECT *, DATE_FORMAT(date, '%d-%M-%Y') as formatted_date FROM transactions WHERE user_id = :user_id",
             [
                 'user_id' => $_SESSION['user']
             ]
