@@ -23,6 +23,12 @@ class ReceiptService
             throw new ValidationException(['receipt' => ['Failed to upload file']]);
         }
 
+        $maxFileSizeMB = 3;
+
+        if ($file['size'] * 1024 * 1024 > $maxFileSizeMB) {
+            throw new ValidationException(['receipt' => ['File uploaded is too Large']]);
+        }
+
         dd($file);
     }
 }
