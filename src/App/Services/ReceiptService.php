@@ -42,4 +42,13 @@ class ReceiptService
             throw new ValidationException(['receipt' => ['Invalid File Type']]);
         }
     }
+
+    public function upload(array $file)
+    {
+
+        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $newFilename = bin2hex(random_bytes(16)) . '.' . $fileExtension;
+
+        dd($newFilename);
+    }
 }
