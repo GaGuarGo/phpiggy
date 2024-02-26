@@ -36,7 +36,7 @@ class Database
 
     public function query(string $query, array $params = []): Database
     {
-        $this->stmt =   $this->connection->prepare(query: $query);
+        $this->stmt = $this->connection->prepare(query: $query);
         $this->stmt->execute($params);
         return $this;
     }
@@ -55,5 +55,11 @@ class Database
     public function id()
     {
         return $this->connection->lastInsertId();
+    }
+
+
+    public function findAll()
+    {
+        return $this->stmt->fetchAll();
     }
 }
