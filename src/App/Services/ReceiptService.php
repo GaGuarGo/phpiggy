@@ -6,6 +6,7 @@ namespace App\Services;
 
 use Framework\Database;
 use Framework\Exceptions\ValidationException;
+use App\Config\Paths;
 
 
 class ReceiptService
@@ -18,28 +19,35 @@ class ReceiptService
 
     public function validateFile(?array $file)
     {
-
         if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
-            throw new ValidationException(['receipt' => ['Failed to upload file']]);
+            throw new ValidationException([
+                'receipt' => ['Failed to upload file']
+            ]);
         }
 
-        $maxFileSizeMB = 3;
+        $maxFileSizeMB = 3 * 1024 * 1024;
 
-        if ($file['size'] * 1024 * 1024 > $maxFileSizeMB) {
-            throw new ValidationException(['receipt' => ['File uploaded is too Large']]);
+        if ($file['size'] > $maxFileSizeMB) {
+            throw new ValidationException([
+                'receipt' => ['File upload is too large']
+            ]);
         }
 
         $originalFileName = $file['name'];
 
         if (!preg_match('/^[A-za-z0-9\s._-]+$/', $originalFileName)) {
-            throw new ValidationException(['receipt' => ['Invalid File Name']]);
+            throw new ValidationException([
+                'receipt' => ['Invalid filename']
+            ]);
         }
 
         $clientMimeType = $file['type'];
         $allowedMimeTypes = ['image/jpeg', 'image/png', 'application/pdf'];
 
         if (!in_array($clientMimeType, $allowedMimeTypes)) {
-            throw new ValidationException(['receipt' => ['Invalid File Type']]);
+            throw new ValidationException([
+                'receipt' => ['Invalid file type']
+            ]);
         }
     }
 
@@ -49,6 +57,10 @@ class ReceiptService
         $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
         $newFilename = bin2hex(random_bytes(16)) . '.' . $fileExtension;
 
-        dd($newFilename);
+        $uploadPath = Paths::STORAGE_UPLOADS . "/" . $newFilename;
+
+        if (!move_uploaded_file($file['tmp_name'], $uploadPath)) {
+            throw new ValidationException(['receipt' => ['Failed to upload file']]);
+        }
     }
 }
